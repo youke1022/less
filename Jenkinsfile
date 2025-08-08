@@ -25,9 +25,10 @@ pipeline {
                 script {
                     echo "进入容器并执行游戏..."
                     // 简化目录流程：直接在工作空间根目录执行game.py
-                    bat "docker exec dixiacheng sh -c \"cd /app && echo -e 'a\\n100\\n1\\n' | python game.py\""
+                    bat "docker exec dixiacheng sh -c \"cd /app && printf "a\n100\n1\n" | python3 game.py\""
                 }
             }
         }
     }
 }
+
