@@ -1,5 +1,3 @@
-// Jenkinsfile - 简化目录流程版（仅包含game.py和Jenkinsfile）
-
 pipeline {
     agent any
     
@@ -15,7 +13,6 @@ pipeline {
                             python:3.9-slim ^
                             tail -f /dev/null
                     '''
-                    echo "容器启动成功，项目已挂载到/app目录"
                 }
             }
         }
@@ -23,15 +20,13 @@ pipeline {
         stage('执行游戏脚本') {
             steps {
                 script {
-                    echo "进入容器并执行游戏..."
-                    // 简化目录流程：直接在工作空间根目录执行game.py
+                    echo "通过逗号分隔参数执行游戏..."
+                    // 新输入方式：直接传递 "a,100,1" 作为单次输入
                     bat '''
-                        docker exec dixiacheng sh -c "cd /app && printf \"a\\n100\\n1\\n\" | python3 game.py"
-                    '''
+                        docker exec dixiacheng sh -c "cd /app && echo 'a,100,1' | python3 game.py"
+                    '''  
                 }
             }
         }
     }
 }
-
-
