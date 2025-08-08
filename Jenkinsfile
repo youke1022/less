@@ -1,4 +1,4 @@
-// Jenkinsfile - 修复输入序列传递问题版
+// Jenkinsfile - 简化目录流程版（仅包含game.py和Jenkinsfile）
 
 pipeline {
     agent any
@@ -24,12 +24,8 @@ pipeline {
             steps {
                 script {
                     echo "进入容器并执行游戏..."
-                    // 使用here-document语法确保输入序列正确传递
-                    bat "docker exec dixiacheng sh -c \"cd /app && python game.py <<EOF
-a
-100
-1
-EOF\""
+                    // 简化目录流程：直接在工作空间根目录执行game.py
+                    bat "docker exec dixiacheng sh -c \"cd /app && echo -e 'a\\n100\\n1\\n' | python game.py\""
                 }
             }
         }
